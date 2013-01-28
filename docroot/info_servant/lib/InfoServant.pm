@@ -30,7 +30,6 @@ sub startup {
     # Router
     my $r = $self->routes;
     
-    # $r->get('/')->to('index#slash');
     $r->get('/')->to(controller => 'index', action => 'slash');
     $r->get('/login')->to(controller => 'index', action => 'login');
     $r->post('/login')->over(params => [qw(login password)])->to(controller => 'index', action => 'login');
@@ -93,17 +92,6 @@ sub startup {
     $r->post('/dashboard/upd_profile/:part')->to(controller => 'Dashboard', action => 'upd_profile');
     $r->post('/dashboard/provision')->to(controller => 'Dashboard', action => 'provision');
     $r->any('/logout')->to(controller => 'Dashboard', action => 'logout');
-
-    # $r->get('/')->to(namespace => 'InfoServant::Index', action => 'slash');
-
-    # $r->get('/')->over(host => qr/^cal.infoservant\.com/)->to(namespace => 'Hosting::Cal::Infoservant::Com', action => 'dynamic');
-    # $r->get('/file.txt')->over(host => qr/^cal.infoservant\.com/)->to(namespace => 'Hosting::Cal::Infoservant::Com', action => 'static');
-
-    # $r->get('/')->over(host => qr/^infoservant\.net/)->to(namespace => 'Hosting::Infoservant::Net', action => 'dynamic');
-    # $r->get('/file.txt')->over(host => qr/^infoservant\.net/)->to(namespace => 'Hosting::Infoservant::Net', action => 'static');
-
-    # $r->get('/')->to(namespace => 'Hosting::Default', action => 'dynamic');
-    # $r->get('/file.txt')->to(namespace => 'Hosting::Default', action => 'static');
 }
 
 1;

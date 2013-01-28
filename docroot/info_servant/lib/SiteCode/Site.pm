@@ -7,7 +7,8 @@ use ScotchEgg::Schema;
 
 sub config
 {
-    my $site_rs = ScotchEgg::Schema->resultset("SiteKey");
+    my $schema =  ScotchEgg::Schema->connect("dbi:Pg:dbname=scotch_egg", "kevin", "the_trinity");
+    my $site_rs = $schema->resultset("SiteKey");
 
     my %site = ();
 
