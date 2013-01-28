@@ -1,11 +1,20 @@
 package InfoServant;
 use Mojo::Base 'Mojolicious';
 
+use ScotchEgg::Schema;
+use SiteCode::Site;
+
+has schema => sub {
+    return ScotchEgg::Schema->connect("dbi:Pg:dbname=scotch_egg", "kevin", "the_trinity");
+};
+
 # This method will run once at server start
 sub startup {
     my $self = shift;
 
     $self->log->level("debug");
+
+    $self->helper(db => sub { $self->app->schema });
 
     # Documentation browser under "/perldoc"
     $self->plugin(tt_renderer => {template_options => {CACHE_SIZE => 0}});
@@ -15,7 +24,8 @@ sub startup {
 
     $self->renderer->default_handler('tt');
 
-    $self->secret('They"s want my s#cret!');
+    my $site_config = SiteCode::Site->config();
+    $self->secret($$site_config{site_secret});
 
     # Router
     my $r = $self->routes;
