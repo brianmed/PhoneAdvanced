@@ -147,7 +147,7 @@ sub addUser
             }
         }
 
-        $dbx->do("INSERT INTO account (name, display_name, email, password, verified, stripe_code) VALUES (?, ?, ?, ?, ?, -1)", undef, uc $name, $name, lc $email, $password, $md5);
+        $dbx->do("INSERT INTO account (name, display_name, email, password, verified, stripe_code) VALUES (?, ?, ?, ?, ?, NOW())", undef, uc $name, $name, lc $email, $password, $md5);
     };
     if ($@) {
         die SiteCode::Exception->new(app => $ops{app}, error_string => $@, package => __PACKAGE__);

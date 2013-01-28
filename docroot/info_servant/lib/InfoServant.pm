@@ -20,7 +20,7 @@ sub startup {
     $self->plugin(tt_renderer => {template_options => {CACHE_SIZE => 0}});
     $self->plugin('ParamCondition');
     # $self->plugin('HeaderCondition');
-    $self->plugin('ConsoleLogger');
+    # $self->plugin('ConsoleLogger');
 
     $self->renderer->default_handler('tt');
 

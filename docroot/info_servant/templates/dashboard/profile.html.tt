@@ -50,13 +50,13 @@
           [% IF external_nbr %]
             <form onsubmit="return onSubmit(this);" class="form-inline">
                 <input type="text" class="input-medium" name=external_nbr value="[% external_nbr %]" disabled>
-                <p>Your voicemail number.</p>
+                <p>Your number.</p>
             </form>
           [% ELSE %]
             <form onsubmit="return onSubmit(this);" class="form-inline">
                 <button id="submitProfile" type="submit" class="btn btn-primary">Submit</button>
                 <input type="text" class="input-medium" name=validate_external value="[% validate_external %]" placeholder="555-555-1212">
-                <p>Your voicemail number.</p>
+                <p>Your number.</p>
             </form>
           [% END %]
 

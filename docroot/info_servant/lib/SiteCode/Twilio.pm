@@ -459,6 +459,7 @@ sub initiate_web_merge {
     my $res = $ua->request($req);
     unless ($res->is_success()) {
         warn($res->status_line);
+        warn("POST Twilio: " . $req->as_string());
         return("Unable to contact phone vendor\n");
     }
     else {
