@@ -1,0 +1,40 @@
+      <form id="octocall_form" class="form-horizontal well" method=post>
+        <fieldset>
+          <legend>New OctoCall</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Name</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="octo_name" name=octo_name value=[% octo_name %]>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">CallerID Number</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" name=internal_nbr value="[% internal_nbr %]" disabled> </label>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Greeting</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" name=greeting value="[% greeting %]"> </label>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Numbers</label>
+            <div class="controls">
+              <textarea class="input-xlarge" id="numbers" name="numbers" rows="6">[% numbers %]</textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button id="btncall" type="button" class="btn btn-primary">Call</button>
+            <button type="reset" class="btn">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+
+    [% last_octocalls %]

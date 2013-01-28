@@ -1,0 +1,26 @@
+      <form id="infovoice_form" action="/dashboard/infovoice" class="form-horizontal well" method=post>
+        <fieldset>
+          <legend>New InfoVoice</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Name</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="voice_name" name=voice_name value=[% voice_name %]>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">InfoVoice</label>
+            <div class="controls">
+              <textarea class="input-xlarge" id="infovoice" name="infovoice" rows="6">[% infovoice %]</textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button id="btnnext" type="button" class="btn btn-primary">Next</button>
+            <button type="reset" class="btn">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+
+    [% last_infovoices %]

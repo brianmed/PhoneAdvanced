@@ -1,0 +1,42 @@
+      <form id="infovoice_form" class="form-horizontal well" method=post>
+        <fieldset>
+          <legend>InfoVoice</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="email">CallerID Number</label>
+            <div class="controls">
+              <input type="text" class="input-medium" name=internal_nbr value="[% internal_nbr %]" disabled> </label>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Name</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="voice_name" name=voice_name value=[% voice_name %]>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">InfoVoice</label>
+            <div class="controls">
+              <textarea class="input-xlarge" id="infovoice" name="infovoice" rows="6">[% infovoice %]</textarea>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Numbers</label>
+            <div class="controls">
+              <textarea class="input-xlarge" id="numbers" name="numbers" rows="6">[% numbers %]</textarea>
+            <p>One per line.</p>
+            </div>
+          </div>
+
+          <input type="hidden" id="gonumbers" name=gonumbers value=0>
+
+          <div class="form-actions">
+            <button id="btnretest" type="button" class="btn btn-primary">Retest</button>
+            <button id="btnsave" type="button" class="btn btn-primary">Save</button>
+          </div>
+        </fieldset>
+      </form>
+

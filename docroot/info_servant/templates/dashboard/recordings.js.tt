@@ -1,0 +1,37 @@
+function onSubmit(form, hack)
+{
+    arguments.callee.count = ++arguments.callee.count || 1;
+
+    if (1 != arguments.callee.count) {
+        $("#info").html("Double click detected");
+
+        $("#info").fadeIn(1350)
+        setTimeout(function() {
+              $('#info').fadeOut(1350);
+        }, 8000);
+
+        return;
+    }
+
+    if (1 == hack) {
+        var value = $('#cur_page').val();
+        ++value;
+
+        $('#cur_page').val(value);
+    }
+
+    if (-1 == hack) {
+        var value = $('#cur_page').val();
+        if (0 < value) {
+            --value;
+        }
+
+        $('#cur_page').val(value);
+    }
+
+    $("#htmlBody").load("/dashboard/html/recordings?" + $(form).serialize());
+
+    arguments.callee.count = 0;
+
+    return false;
+}

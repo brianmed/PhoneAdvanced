@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="jquery-latest.js"></script>
+    <script src="ckeditor/ckeditor.js"></script>
+</head>
+<body>
+
+  <!-- {\rtf1\ansi\deff0 {\fonttbl {\f0 Monotype Corsiva;}} \qc\f0\fs120\i\b H\b ello,\line World!} -->
+
+  <!-- • Put a newline before every \pard or \par (commands that are explained in the “Paragraphs” section). --> 
+  <!-- • Put a newline before and after the RTF font-table, stylesheet, and other similar constructs (like the optional color table, described later). --> 
+  <!-- • You can put a newline after every Nth space, {, or }. (Alternately: put a newline after every space, {, or } that’s after the 60th column.) --> 
+
+<script type="text/javascript">
+    $(document).ready(function CKupdate() {
+        $('#myForm').ajaxForm(function () {
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+        });       
+    });
+</script>
+
+    <form method=post id=myForm>
+		<textarea cols="80" id="thedoc" name="thedoc" rows="10">
+            [% thedoc %]
+		</textarea>
+		<script>
+
+			// This call can be placed at any point after the
+			// <textarea>, or inside a <head><script> in a
+			// window.onload event handler.
+
+			// Replace the <textarea id="editor"> with an CKEditor
+			// instance, using default configurations.
+
+			CKEDITOR.replace( 'thedoc' );
+		</script>
+		<p>
+            <button type="submit" name=save onclick="CKupdate();$('#myForm').ajaxSubmit();">Save</button>
+            <button type="submit" name=rtF onclick="CKupdate();$('#myForm').ajaxSubmit();">RTF</button>
+		</p>
+    </form> 
+</body>
+</html>

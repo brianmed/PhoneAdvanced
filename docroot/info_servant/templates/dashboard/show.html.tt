@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+
+    <!-- <script src="/mediaelement/build/mediaelement-and-player.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="/mediaelement/build/mediaelementplayer.min.css" /> -->
+</head>
+<body>
+
+    <script type="text/javascript"  src="jquery-latest.js"></script>
+    <div>
+
+  <div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto;">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">Phone Advanced: Your digital assistant.</a>
+        <div class="nav-collapse">
+          <ul class="nav pull-right">
+            <li><a href="mailto:support@phoneadvanced.com">Contact</a></li>
+            <li class="divider-vertical"></li>
+            <li class=active><a href="/logout">Logout</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div>
+    </div><!-- /navbar-inner -->
+  </div><!-- /navbar -->
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              [% IF account_sid && stripe_code %]
+              <li class="nav-header">Dashboard</li>
+              <li id="li_voicemail" class="active"><a href="javascript:void(0)" onClick="loadHtml('voicemail');">Voicemail</a></li>
+              <li id="li_recordings" class="active"><a href="javascript:void(0)" onClick="loadHtml('recordings');">Recordings</a></li>
+              <li class="nav-header">Call Center</li>
+              <li id="li_start_receptionist"><a href="javascript:void(0)" onClick="loadHtml('start_receptionist');">Virtual Pamela</a></li>
+              <li id="li_start_survey"><a href="javascript:void(0)" onClick="loadHtml('start_survey');">Surveys</a></li>
+              <li id="li_start_octocall"><a href="javascript:void(0)" onClick="loadHtml('start_octocall');">OctoCall</a></li>
+              <li id="li_start_infovoice"><a href="javascript:void(0)" onClick="loadHtml('start_infovoice');">InfoVoice</a></li>
+              <li class="nav-header">Utils</li>
+              <li id="li_call_nbr"><a href="javascript:void(0)" onClick="loadHtml('call_nbr');">Make a call</a></li>
+              <li id="li_quick_conference"><a href="javascript:void(0)" onClick="loadHtml('quick_conference');">Quick Conference</a></li>
+              [% END %]
+              <li class="nav-header">Account</li>
+              <li id="li_profile"><a href="javascript:void(0)" onClick="loadHtml('profile');">Profile</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div id=errors class="alert alert-error hide">
+          </div>
+
+          <div id=success class="alert alert-success hide">
+          </div>
+
+          <div id=info class="alert alert-info hide">
+          </div>
+
+            <div id=htmlBody>
+            </div>
+        </div><!--/span-->
+      </div><!--/row-->
+
+  </div>
+
+  </div>
+
+        <script>
+        $.ajaxSetup ({  
+            cache: false,
+            async: false
+        });
+
+        function loadHtml (link, script) {
+            var id = '#li_' + link;
+            $(".active").removeClass("active");
+            $(id).addClass("active");
+
+            $("#htmlBody").load("/dashboard/html/" + link);
+            $.getScript("/dashboard/javascript/" + link);
+            if (script) {
+                script = unescape(script);
+                eval(script);
+            }
+        }
+
+        [% IF account_sid && stripe_code %]
+            loadHtml("voicemail");
+        [% ELSE %] 
+            loadHtml("profile");
+        [% END %]
+        </script>
+</body>
+</html>

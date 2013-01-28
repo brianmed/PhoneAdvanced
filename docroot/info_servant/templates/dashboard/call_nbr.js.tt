@@ -1,0 +1,47 @@
+function onGo()
+{
+    arguments.callee.count = ++arguments.callee.count || 1;
+
+    if (1 != arguments.callee.count) {
+        $("#info").html("Double click detected");
+
+        $("#info").fadeIn(1350)
+        setTimeout(function() {
+              $('#info').fadeOut(1350);
+        }, 8000);
+
+        return;
+    }
+
+    $("#success").html("Calling: " + $("#call_nbr").val());
+    $("#success").fadeIn(1350);
+    setTimeout(function() {
+          $('#success').fadeOut(1350);
+    }, 8000);
+    
+    $.ajax({
+        type: "POST",
+        url: "/dashboard/call_nbr",
+        data: $("#call_form").serialize(),
+        async: false,
+        success: function(data, textStatus, jqXHR) {
+            if (1 == data.success) {
+                $("#errors").fadeOut(1350);
+                setTimeout(function() {
+                      $('#errors').fadeOut(1350);
+                }, 8000);
+            }
+            else {
+                $("#errors").html(data.error)
+                $("#errors").fadeIn(1350)
+                setTimeout(function() {
+                      $('#errors').fadeOut(1350);
+                }, 8000);
+            }
+        },
+    });
+
+    arguments.callee.count = 0;
+}
+
+$("#go").click(onGo);

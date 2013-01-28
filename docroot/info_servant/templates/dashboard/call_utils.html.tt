@@ -1,0 +1,24 @@
+      <form id="call_form" action="/dashboard/call_nbr" class="form-horizontal well" method=post>
+        <fieldset>
+          <legend>Utils</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Call number</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="call_nbr" name=call_nbr value=[% call_nbr %]>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Record call</label>
+            <div class="controls">
+              <input type="checkbox" class="input-xlarge" id="record_call" name=record_call [% record_call %]>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button id="go" type="button" class="btn btn-primary">Go</button>
+            <button type="reset" class="btn">Cancel</button>
+          </div>
+        </fieldset>
+      </form>

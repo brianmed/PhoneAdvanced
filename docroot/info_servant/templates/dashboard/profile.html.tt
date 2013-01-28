@@ -1,0 +1,172 @@
+[% IF reload %]
+    <script>
+        setTimeout(function() {
+            location.reload(true);
+        }, 1800);
+    </script>
+[% END %]
+
+[% UNLESS account_sid %]
+            <style type="text/css">
+                #twilio-connect-button {
+                    background: url(https://www.twilio.com/packages/connect-apps/images/connect-button.png);
+                    width: 130px; height: 34px; display: block;
+                }
+                #twilio-connect-button:hover { background-position: 0 34px; }
+            </style>
+
+
+<form>
+  <fieldset>
+    <legend>Twilio</legend>
+    <a href="https://www.twilio.com/authorize/CNb916c0cd6caa595c4e544970c85bf2c5" id="twilio-connect-button"></a>
+    <p>We need access to your Twilio account.  Please connect with us.</p>
+  </fieldset>
+</form>
+[% END %]
+
+[% IF account_sid %]
+        [% IF success %]
+      <div id=success class="alert alert-success">
+        [% success %]
+      </div>
+      [% END %]
+
+        [% IF info %]
+      <div id=info class="alert alert-info">
+        [% info %]
+      </div>
+      [% END %]
+
+        [% IF errors %]
+      <div id=errors class="alert alert-error">
+        [% errors %]
+      </div>
+      [% END %]
+
+        <fieldset>
+          <legend>Profile</legend>
+
+          [% IF external_nbr %]
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+                <input type="text" class="input-medium" name=external_nbr value="[% external_nbr %]" disabled>
+                <p>Your voicemail number.</p>
+            </form>
+          [% ELSE %]
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+                <button id="submitProfile" type="submit" class="btn btn-primary">Submit</button>
+                <input type="text" class="input-medium" name=validate_external value="[% validate_external %]" placeholder="555-555-1212">
+                <p>Your voicemail number.</p>
+            </form>
+          [% END %]
+
+          [% IF internal_nbr %]
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+                <input type="text" class="input-medium" name=external_nbr value="[% internal_nbr %]" disabled>
+                <p>Phone Advanced Number</p>
+            </form>
+          [% ELSE %]
+            [% IF found_numbers %]
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+            <button id="submit" type="submit" class="btn btn-primary">Select</button>
+            <select name=select_int_nbr>[% found_numbers %]</select>
+            <p>Purchase Phone Advanced number from Twilio.</p>
+            </form>
+            [% ELSIF retrieved_numbers %]
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+            <button id="submit" type="submit" class="btn btn-primary">Select</button>
+            <select name=select_int_nbr>[% retrieved_numbers %]</select>
+            <p>Retrieve an existing number from Twilio.</p>
+            </form>
+            [% ELSE %]
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+              <button id="submit" type="submit" class="btn btn-primary">Search</button>
+              <input type="text" class="input-medium" id="find_zip" name=find_zip value="[% find_zip %]" placeholder="Zip or Area Code">
+              <p>Purchase Phone Advanced number from Twilio.</p>
+            </form>
+
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+              <button id="submit" type="submit" class="btn btn-primary">Retrieve</button>
+              <input type="hidden" name=retrieve_nbr value="1">
+              <p>Retrieve an existing number from Twilio.</p>
+            </form>
+            [% END %]
+          [% END %]
+
+            <form onsubmit="return onSubmit(this);" class="form-inline">
+            <input type="hidden" name=profile_group value="1">
+            <fieldset>
+          <label class="checkbox">
+          <input type="checkbox" name=email_rcpt_voicemail value=1 [% checked.email_rcpt_voicemail %]> Email when voicemail received.
+          </label>
+            <br>
+          <label class="checkbox">
+          <input type="checkbox" name=attach_message value=1 [% checked.attach_message %]> Attach message to email.
+          </label>
+            <br>
+              <button id="submit" type="submit" class="btn btn-primary">Update</button>
+            </fieldset>
+            </form>
+
+        </fieldset>
+[% END %]
+
+[% IF 0 %]
+[% IF stripe_code %]
+      <form onsubmit="return onSubmit(this);" class="form-inline">
+      <input type="hidden" name=cancel_account value="1">
+          <div class="control-group">
+            <div class="controls">
+                <button id="submit" type="submit" class="btn btn-primary">Cancel Account</button>
+            </div>
+          </div>
+    </form>
+[% ELSE %]
+      <form onsubmit="return onSubmit(this);" class="form-horizontal well">
+      <input type="hidden" name=process_cc value="1">
+        <fieldset>
+          <legend>Subscribe ($3.99/mo with 14 day trial)</legend>
+        </fieldset>
+          <div class="control-group">
+            <label class="control-label">Name on Card</label>
+            <div class="controls">
+              <input type=text class="input-xlarge" name=name value="[% name %]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Credit Card</label>
+            <div class="controls">
+              <input type=text class="input-xlarge" name=number value="[% number %]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Expiration: Month</label>
+            <div class="controls">
+              <input type=text class="input-xlarge" name=exp_month value="[% exp_month %]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Expiration: Year</label>
+            <div class="controls">
+              <input type=text class="input-xlarge" name=exp_year value="[% exp_year %]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">CVC</label>
+            <div class="controls">
+              <input type=text class="input-xlarge" name=cvc value="[% cvc %]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls">
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+    </form>
+[% END %]
+[% END %]

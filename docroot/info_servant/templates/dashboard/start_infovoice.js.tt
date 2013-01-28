@@ -1,0 +1,72 @@
+function onInfoVoice(event)
+{
+    arguments.callee.count = ++arguments.callee.count || 1;
+
+    if (1 != arguments.callee.count) {
+        $("#info").html("Double click detected");
+
+        $("#info").fadeIn(1350)
+        setTimeout(function() {
+              $('#info').fadeOut(1350);
+        }, 8000);
+
+        return;
+    }
+
+    var text = $(event.currentTarget).html();
+
+    if ("Numbers" == text) {
+        $('#gonumbers').val(1);
+    }
+    else if ("Save" == text) {
+        $('#gonumbers').val(2);
+    }
+
+    var default_url = "/callblast/infovoice/wizard";
+
+    $.ajax({
+        type: "POST",
+        url: default_url,
+        data: $("#infovoice_form").serialize(),
+        async: false,
+        success: function(data, textStatus, jqXHR) {
+            if (data.info) {
+                $("#info").html(data.info);
+                $("#info").fadeIn(1350);
+                setTimeout(function() {
+                      $('#info').fadeOut(1350);
+                }, 8000);
+            }
+
+            if (data.success_msg) {
+                $("#success").html(data.success_msg);
+                $("#success").fadeIn(1350);
+                setTimeout(function() {
+                      $('#success').fadeOut(1350);
+                }, 8000);
+            }
+
+            if (data.success) {
+                $("#errors").fadeOut(1350);
+
+                $("#htmlBody").html(data.html);
+                if (data.script) {
+                    var script = unescape(data.script);
+                    eval(script);
+                }
+            }
+            else {
+                $("#errors").html(data.error)
+                $("#errors").fadeIn(1350)
+                setTimeout(function() {
+                      $('#errors').fadeOut(1350);
+                }, 8000);
+            }
+        },
+    });
+
+    arguments.callee.count = 0;
+}
+
+$("#btnnext").click(onInfoVoice);
+

@@ -1,0 +1,64 @@
+function onOctoCall(event)
+{
+    arguments.callee.count = ++arguments.callee.count || 1;
+
+    if (1 != arguments.callee.count) {
+        $("#info").html("Double click detected");
+
+        $("#info").fadeIn(1350)
+        setTimeout(function() {
+              $('#info').fadeOut(1350);
+        }, 8000);
+
+        return;
+    }
+
+    var default_url = "/callblast/octocall/save";
+
+    $.ajax({
+        type: "POST",
+        url: default_url,
+        data: $("#octocall_form").serialize(),
+        async: false,
+        success: function(data, textStatus, jqXHR) {
+            if (data.info) {
+                $("#info").html(data.info);
+                $("#info").fadeIn(1350);
+                setTimeout(function() {
+                      $('#info').fadeOut(1350);
+                }, 8000);
+            }
+
+            if (data.success_msg) {
+                $("#success").html(data.success_msg);
+                $("#success").fadeIn(1350);
+                setTimeout(function() {
+                      $('#success').fadeOut(1350);
+                }, 8000);
+            }
+
+            if (data.success) {
+                $("#errors").fadeOut(1350);
+
+                $("#htmlBody").html(data.html);
+
+                if (data.script) {
+                    var script = unescape(data.script);
+                    eval(script);
+                }
+            }
+            else {
+                $("#errors").html(data.error)
+                $("#errors").fadeIn(1350)
+                setTimeout(function() {
+                      $('#errors').fadeOut(1350);
+                }, 8000);
+            }
+        },
+    });
+
+    arguments.callee.count = 0;
+}
+
+$("#btncall").click(onOctoCall);
+

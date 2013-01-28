@@ -1,0 +1,17 @@
+      <form id="quick_conference" action="/dashboard/quick_conference" class="form-horizontal well" method=post>
+        <fieldset>
+          <legend>Quick Conference</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Quick Conference</label>
+            <div class="controls">
+              <textarea class="input-xlarge" id="numbers" name="numbers" rows="6">[% numbers %]</textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button id="btnconf" type="button" class="btn btn-primary">Conference</button>
+            <button type="reset" class="btn">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
